@@ -1,8 +1,9 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography, Paper } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useOiContext } from "../hooks/useOiContext";
 import Sidebar from "./Sidebar";
 import ChartView from "./ChartView";
+import TableView from "./TableView";
 
 const Main = () => {
 	// from context
@@ -66,7 +67,7 @@ const Main = () => {
 	return (
 		<>
 			<Box sx={{ display: "flex", flexDirection: "column", my: "20px", p: "0 10px" }}>
-				<Grid container spacing={0.5}>
+				<Grid container spacing={2}>
 					{/* sidebar (info) */}
 					<Sidebar
 						handleSymbolChange={handleSymbolChange}
@@ -84,6 +85,18 @@ const Main = () => {
 						dateWiseOi={dateWiseOi}
 					/>
 				</Grid>
+				<Box sx={{ px: "20px", mt: 5 }}>
+					<Box sx={{ my: 2 }}>
+						<Typography sx={{ fontWeight: "bold" }} variant="h5">
+							The last day's OI data & it's change
+						</Typography>
+					</Box>
+					<Box>
+						<Paper sx={{ width: "80%" }}>
+							<TableView />
+						</Paper>
+					</Box>
+				</Box>
 			</Box>
 		</>
 	);

@@ -5,6 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TransitionModal from "./Modal";
+import { Avatar } from "@mui/material";
 
 const Header = () => {
 	const [open, setOpen] = useState(false);
@@ -18,12 +19,15 @@ const Header = () => {
 				<AppBar sx={{ backgroundColor: "info.dark" }} position="static">
 					<Box sx={{ padding: "0 10px" }}>
 						<Toolbar>
-							<Typography
-								variant="h5"
-								sx={{ mr: "auto", fontWeight: "bold", textDecoration: "underlined" }}
-							>
-								Oi Lytics
-							</Typography>
+							<Button sx={{ mr: "auto", color: "#fff", textTransform: "capitalize" }} disableRipple>
+								<Avatar src="../../public/logo.png" sx={{ mr: 1 }} />
+								<Typography
+									variant="h5"
+									sx={{ mr: "auto", fontWeight: "bold", textDecoration: "underlined" }}
+								>
+									Oi Lytics
+								</Typography>
+							</Button>
 							<Button
 								onClick={() => (!open ? handleOpen() : handleClose())}
 								variant="contained"

@@ -12,6 +12,7 @@ const OiContextProvider = ({ children }) => {
 	const [recordItem, setRecordItem] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(false);
+	const [tableData, setTableData] = useState([]);
 
 	const handleRecordItem = (symbol) => {
 		const record = records.find((record) => record.symbol === symbol);
@@ -32,6 +33,10 @@ const OiContextProvider = ({ children }) => {
 			// extract all symbols & set
 			const symbols = getAllSymbols(data?.record);
 			setSymbols(symbols);
+
+			// get tabular data to show
+			const tabularData = getTabularData(data?.record);
+			setTableData(tabularData);
 		} catch (error) {
 			setIsError(true);
 		} finally {
@@ -40,9 +45,19 @@ const OiContextProvider = ({ children }) => {
 	}, [API_URL]);
 
 	// get all symbols
-	const getAllSymbols = (records) => {
-		return records.map((record) => record.symbol);
-	};
+	const getAllSymbols = (records) => records.map((record) => record.symbol);
+
+	const getTabularData = (records) =>
+		records.map((record) => ({
+			symbol: record.symbol,
+			strike: record.strike,
+			expiry: record.expiry,
+			expiryType: record.expiryType,
+			type: record.type,
+			last_date: Object.keys(record.data)[Object.keys(record.data).length - 1],
+			oi: record.data[Object.keys(record.data)[Object.keys(record.data).length - 1]].OI,
+			oi_change: record.data[Object.keys(record.data)[Object.keys(record.data).length - 1]].OIChange,
+		}));
 
 	// fetch when page renders
 	useEffect(() => {
@@ -60,6 +75,7 @@ const OiContextProvider = ({ children }) => {
 				isError,
 				symbols,
 				recordItem,
+				tableData,
 				handleRecordItem,
 			}}
 		>
