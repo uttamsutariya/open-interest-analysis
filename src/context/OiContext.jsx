@@ -45,19 +45,36 @@ const OiContextProvider = ({ children }) => {
 	}, [API_URL]);
 
 	// get all symbols
-	const getAllSymbols = (records) => records.map((record) => record.symbol);
+	const getAllSymbols = (records) => sortSymbolsStrikeWise(records.map((record) => record.symbol));
 
+	// sort symbols strike wise
+	const sortSymbolsStrikeWise = (records) => {
+		return records.sort((a, b) => {
+			const strike_a = parseInt(a.split(" ")[3]);
+			const strike_b = parseInt(b.split(" ")[3]);
+
+			return strike_a > strike_b ? 1 : -1;
+		});
+	};
+
+	// get tabular data (strike wise sorted)
 	const getTabularData = (records) =>
-		records.map((record) => ({
-			symbol: record.symbol,
-			strike: record.strike,
-			expiry: record.expiry,
-			expiryType: record.expiryType,
-			type: record.type,
-			last_date: Object.keys(record.data)[Object.keys(record.data).length - 1],
-			oi: record.data[Object.keys(record.data)[Object.keys(record.data).length - 1]].OI,
-			oi_change: record.data[Object.keys(record.data)[Object.keys(record.data).length - 1]].OIChange,
-		}));
+		records
+			.map((record) => ({
+				symbol: record.symbol,
+				strike: record.strike,
+				expiry: record.expiry,
+				expiryType: record.expiryType,
+				type: record.type,
+				last_date: Object.keys(record.data)[Object.keys(record.data).length - 1],
+				oi: record.data[Object.keys(record.data)[Object.keys(record.data).length - 1]].OI,
+				oi_change: record.data[Object.keys(record.data)[Object.keys(record.data).length - 1]].OIChange,
+			}))
+			.sort((a, b) => {
+				const strike_a = parseInt(a.symbol.split(" ")[3]);
+				const strike_b = parseInt(b.symbol.split(" ")[3]);
+				return strike_a > strike_b ? 1 : -1;
+			});
 
 	// fetch when page renders
 	useEffect(() => {
