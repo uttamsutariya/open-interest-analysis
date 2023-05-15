@@ -5,7 +5,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TransitionModal from "./Modal";
-import { Avatar } from "@mui/material";
 
 const Header = () => {
 	const [open, setOpen] = useState(false);
@@ -20,11 +19,7 @@ const Header = () => {
 					<Box sx={{ padding: "0 10px" }}>
 						<Toolbar>
 							<Button sx={{ mr: "auto", color: "#fff", textTransform: "capitalize" }} disableRipple>
-								<img
-									src="../../public/logo.png"
-									alt="logo"
-									style={{ width: "45px", marginRight: "10px" }}
-								/>
+								<img src="/logo.png" alt="logo" style={{ width: "45px", marginRight: "10px" }} />
 								<Typography
 									variant="h5"
 									sx={{ mr: "auto", fontWeight: "bold", textDecoration: "underlined" }}
