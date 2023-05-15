@@ -20,7 +20,11 @@ const Header = () => {
 					<Box sx={{ padding: "0 10px" }}>
 						<Toolbar>
 							<Button sx={{ mr: "auto", color: "#fff", textTransform: "capitalize" }} disableRipple>
-								<Avatar src="../../public/logo.png" sx={{ mr: 1 }} />
+								<img
+									src="../../public/logo.png"
+									alt="logo"
+									style={{ width: "45px", marginRight: "10px" }}
+								/>
 								<Typography
 									variant="h5"
 									sx={{ mr: "auto", fontWeight: "bold", textDecoration: "underlined" }}
